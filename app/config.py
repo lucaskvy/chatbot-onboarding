@@ -3,17 +3,18 @@ import os
 
 load_dotenv()
 
-PROJECT_ID = os.getenv("PROJECT_ID")
-REGION = os.getenv("REGION")
+PROJECT_ID = os.getenv("PROJECT_ID", "").strip()
+REGION = os.getenv("REGION", "").strip()
 
-IAM_ACCOUNT = os.getenv("IAM_ACCOUNT")
+IAM_ACCOUNT = os.getenv("IAM_ACCOUNT", "").strip()
 
-BQ_DATASET = os.getenv("BQ_DATASET")
-BQ_TABLE = os.getenv("BQ_TABLE")
-BUCKET_NAME = os.getenv("BUCKET_NAME")
+# O .strip() remove qualquer \r, \n ou espaço invisível!
+BQ_DATASET = os.getenv("BQ_DATASET", "").strip()
+BQ_TABLE = os.getenv("BQ_TABLE", "").strip()
+BUCKET_NAME = os.getenv("BUCKET_NAME", "").strip()
 
-MODELO_CHAT = os.getenv("MODELO_CHAT")
-MODELO_EMBEDDINGS = os.getenv("MODELO_EMBEDDINGS")
+MODELO_CHAT = os.getenv("MODELO_CHAT", "").strip()
+MODELO_EMBEDDINGS = os.getenv("MODELO_EMBEDDINGS", "").strip()
 
 TOP_K = int(os.getenv("TOP_K", "8"))
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.2"))

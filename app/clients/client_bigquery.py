@@ -7,6 +7,7 @@
 
 from duckdb import query
 from google.cloud import bigquery
+import logging
 import uuid
 
 from app.config import (
@@ -36,6 +37,7 @@ class ClientBigQuery:
         )
 
         self.dataset = BQ_DATASET
+        self.logger = logging.getLogger(__name__)
 
     def inserir_documento(
         self,
@@ -85,7 +87,7 @@ class ClientBigQuery:
 
         except Exception as e:
             raise RuntimeError(
-                f"Erro ao executar consulta no BigQuery: {e}"
+                f"Erro ao executar consulta no BigQuery: {e}\nQuery: {query}"
             )
 
     def testar_conexao(self):
@@ -120,13 +122,20 @@ class ClientBigQuery:
 
         embedding_sql = ", ".join(map(str, embedding))
 
+        # sanitize identifiers to avoid accidental newlines or backticks
+        safe_project = str(PROJECT_ID).replace("`", "").replace("\r", "").replace("\n", "").strip()
+        safe_dataset = str(self.dataset).replace("`", "").replace("\r", "").replace("\n", "").strip()
+        safe_table = str(BQ_TABLE).replace("`", "").replace("\r", "").replace("\n", "").strip()
+
+        table_ref = f"{safe_project}.{safe_dataset}.{safe_table}"
+
         query = f"""
         SELECT
             base.documento,
             base.chunk,
             distance
         FROM VECTOR_SEARCH(
-            TABLE `{PROJECT_ID}.{self.dataset}.{BQ_TABLE}`,
+            TABLE `{table_ref}`,
             'embedding',
             (
                 SELECT
@@ -135,6 +144,12 @@ class ClientBigQuery:
             top_k => {top_k}
         );
         """
+
+        # log the query (first 2000 chars) to help debugging without overflowing logs
+        try:
+            self.logger.debug("VECTOR_SEARCH query: %s", query[:2000])
+        except Exception:
+            pass
 
         resultado = self.executar_query(query)
 
