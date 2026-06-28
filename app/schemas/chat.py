@@ -1,9 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ChatRequest(BaseModel):
-    pergunta: str
+
+    pergunta: str = Field(
+        ...,
+        description="Pergunta enviada ao chatbot.",
+        examples=["Como atualizar a base da Único?"],
+    )
 
 
 class ChatResponse(BaseModel):
-    resposta: str
+
+    resposta: str = Field(
+        ...,
+        description="Resposta gerada pelo chatbot.",
+    )
