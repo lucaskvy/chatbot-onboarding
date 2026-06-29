@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lagos Analytics · Chatbot Interno</title>
+  <meta name="description" content="Assistente virtual da Lagos Analytics — tire suas dúvidas sobre processos internos com IA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Particle canvas background -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- App wrapper -->
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo-wrapper">
+          <img src="lagos_logo.png" alt="Lagos Analytics" class="logo-img" id="logo-img" />
+          <div class="logo-fallback" id="logo-fallback" style="display:none;">
+            <span class="logo-text">LAG</span>
+            <span class="logo-o">
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="#ff1177" stroke-width="2.5" fill="none"/>
+                <circle cx="12" cy="12" r="5" fill="#00e5ff"/>
+              </svg>
+            </span>
+            <span class="logo-text">S</span>
+          </div>
+        </div>
+        <div class="header-center">
+          <span class="header-title">Assistente Interno</span>
+          <span class="header-badge">
+            <span class="badge-dot" id="badge-dot"></span>
+            <span id="status-text">Conectando...</span>
+          </span>
+        </div>
+        <div class="header-info">
+          <span class="powered-by">Powered by <strong>Gemini 2.5 Flash</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat container -->
+    <main class="chat-container" id="chat-container">
+
+      <!-- Welcome message -->
+      <div class="welcome" id="welcome-screen">
+        <div class="welcome-icon">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <circle cx="28" cy="28" r="27" stroke="#00e5ff" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <circle cx="28" cy="28" r="18" fill="rgba(0,229,255,0.08)" stroke="#00e5ff" stroke-width="1"/>
+            <path d="M20 28h16M28 20v16" stroke="#00e5ff" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="28" cy="28" r="4" fill="#00e5ff"/>
+          </svg>
+        </div>
+        <h1 class="welcome-title">Olá! Como posso ajudar?</h1>
+        <p class="welcome-subtitle">
+          Sou o assistente da Lagos Analytics.<br/>
+          Tire suas dúvidas sobre processos internos, políticas e procedimentos da empresa.
+        </p>
+        <div class="quick-questions">
+          <button class="quick-btn" onclick="useQuickQuestion(this)">📋 Quais são os processos de onboarding?</button>
+          <button class="quick-btn" onclick="useQuickQuestion(this)">📊 Como funciona o fluxo de dados?</button>
+          <button class="quick-btn" onclick="useQuickQuestion(this)">🔐 Quais são as políticas de acesso?</button>
+          <button class="quick-btn" onclick="useQuickQuestion(this)">📅 Quais são os rituais da equipe?</button>
+        </div>
+      </div>
+
+      <!-- Messages will be injected here -->
+      <div class="messages" id="messages"></div>
+
+    </main>
+
+    <!-- Input area -->
+    <footer class="input-area">
+      <div class="input-inner">
+        <div class="input-wrapper">
+          <textarea
+            id="user-input"
+            class="input-field"
+            placeholder="Digite sua pergunta..."
+            rows="1"
+            maxlength="2000"
+            autofocus
+          ></textarea>
+          <button class="send-btn" id="send-btn" onclick="sendMessage()" aria-label="Enviar mensagem">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M2 10L18 2L14 10L18 18L2 10Z" fill="white"/>
+            </svg>
+          </button>
+        </div>
+        <p class="input-hint">Pressione <kbd>Enter</kbd> para enviar · <kbd>Shift+Enter</kbd> para nova linha</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
