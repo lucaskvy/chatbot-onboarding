@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from app.routes.chatbot import router
 
 app = FastAPI(
@@ -25,12 +26,16 @@ app.include_router(router)
 
 
 @app.get(
-    "/",
+    "/status",
     tags=["Status"],
 )
-def home():
+def status():
     return {
         "status": "online",
         "api": "Lagos Analytics Chatbot",
         "version": "1.0.0",
     }
+
+
+# Serve the React/HTML frontend (must be mounted AFTER all API routes)
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
