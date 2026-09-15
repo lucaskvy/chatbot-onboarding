@@ -61,5 +61,5 @@ if __name__ == "__main__":
 
     service.ingerir_documento(
         caminho_arquivo="data/manual.md",
-        nome_documento="Manual Único/Cnseg",
+        nome_documento="Manual de procedimentos",
     )

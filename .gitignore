@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .env
 .vscode/
+
+# Documentos usados pela base RAG podem conter informações internas.
+data/*.md
+!data/README.md
