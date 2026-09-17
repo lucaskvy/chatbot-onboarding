@@ -2,8 +2,6 @@
 
 Uma aplicação RAG para consultas a procedimentos operacionais. A API transforma a pergunta em embedding, recupera trechos semanticamente relacionados no BigQuery e pede ao Gemini uma resposta limitada ao contexto recuperado.
 
-> **Uso responsável:** este repositório não deve conter credenciais, documentos internos ou dados pessoais. Antes de divulgá-lo publicamente, substitua marca e conteúdo operacional por material autorizado ou público.
-
 ## Arquitetura
 
 ```text
